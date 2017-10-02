@@ -1,11 +1,15 @@
+STUDIO_PATH:=$(HOME)/devel/botsi/botsi_umbrella/apps/botsi_studio/assets/src/integration/ace/
+
 .PHONY : doc build clean dist
+
+import-botsi:
+	cp -r $(STUDIO_PATH)/* lib/ace/
 
 pre_build:
 	git rev-parse HEAD > .git-ref
 	mkdir -p build/src
 	mkdir -p build/demo/kitchen-sink
 	mkdir -p build/textarea/src
-	
 	cp -r demo/kitchen-sink/styles.css build/demo/kitchen-sink/styles.css
 	cp demo/kitchen-sink/logo.png build/demo/kitchen-sink/logo.png
 	cp -r doc/site/images build/textarea

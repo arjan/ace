@@ -1,0 +1,33 @@
+########################################
+# Botsi snippets 					   #
+########################################
+
+snippet dialog
+	dialog ${1:name} do
+		${2}
+	end
+
+snippet if
+	if ${1:condition} do
+		${2}
+	end
+
+snippet ifelse
+	if ${1:condition} do
+		${2}
+	else
+		${3}
+	end
+
+snippet else
+	else ${1:condition}
+		${2}
+	end
+
+snippet unknown
+	dialog __unknown__ do
+		${1}
+	end
+
+snippet say
+	say "${1:Hello!}"
