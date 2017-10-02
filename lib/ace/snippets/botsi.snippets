@@ -31,3 +31,12 @@ snippet unknown
 
 snippet say
 	say "${1:Hello!}"
+
+snippet ask
+	${1:input} = ask "${2:question}"
+
+snippet ask_email
+	${1:email} = ask "${2:Enter your email}", expecting: :email
+
+snippet ask_image
+	${1:image} = ask "${2:Upload an image}", expecting: :image
