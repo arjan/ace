@@ -1,10 +1,59 @@
 ########################################
-# Botsi snippets 					   #
+# Botsi snippets                       #
 ########################################
 
+snippet say
+	say "${1:Hello!}"
+
+snippet sleep
+	sleep ${1:2}
+
+snippet image
+	image "${1:https://studio.botsqd.com/images/botsquad-logo.png}"
+
+snippet buttons
+	buttons do
+	"${1:Button 1}" ->
+		postback "${2:button1}"
+	"${2:Button 2}" ->
+		open "${3:http://www.botsquad.com}"
+	end
+
+snippet ask
+	${1:name} = ask "${2:What is your name?}"
+
+snippet ask_email
+	${1:email} = ask "${2:Enter your email}", expecting: :email
+
+snippet ask_image
+	${1:image} = ask "${2:Upload an image}", expecting: :image
+
+snippet yesno
+	${1:reply} = ask "${2:Do you like this?}", expecting: [:yes, :no]
+
 snippet dialog
-	dialog ${1:name} do
+	dialog ${1:mydialog} do
 		${2}
+	end
+
+snippet dtrigger
+	dialog trigger: "${1:hello|welcome|hi}" do
+		say "${2:Hello there to you too!}"
+	end
+
+snippet dpostback
+	dialog postback: "${1:button1}" do
+		say "${2:You pressed a button!}"
+	end
+
+snippet unknown
+	dialog __unknown__ do
+		${1}
+	end
+
+snippet ifyesno
+	if ${1:reply == :yes} do
+		say "${2:You said yes}"
 	end
 
 snippet if
@@ -24,19 +73,11 @@ snippet else
 		${2}
 	end
 
-snippet unknown
-	dialog __unknown__ do
-		${1}
+snippet random
+	random do
+		say "${1:First thing}"
+		say "${1:Another thing}"
 	end
 
-snippet say
-	say "${1:Hello!}"
-
-snippet ask
-	${1:input} = ask "${2:question}"
-
-snippet ask_email
-	${1:email} = ask "${2:Enter your email}", expecting: :email
-
-snippet ask_image
-	${1:image} = ask "${2:Upload an image}", expecting: :image
+snippet inv
+	invoke ${1:mydialog}
