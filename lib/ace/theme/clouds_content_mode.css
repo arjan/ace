@@ -1,111 +1,113 @@
-.ace-clouds .ace_gutter {
+.ace-clouds-content-mode .ace_marker-layer {
+  z-index: 2;
+  mix-blend-mode: darken;
+}
+
+.ace-clouds-content-mode .ace_gutter {
   background: #ebebeb;
   color: #333
 }
 
-.ace-clouds .ace_print-margin {
+.ace-clouds-content-mode .ace_print-margin {
   width: 1px;
   background: #e8e8e8
 }
 
-.ace-clouds {
-  background-color: #FFFFFF;
-  color: #BCC8BA
+.ace-clouds-content-mode {
+  background-color: #ebebeb;
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_cursor {
+.ace-clouds-content-mode .ace_cursor {
   color: #000000
 }
 
-.ace-clouds .ace_marker-layer .ace_selection {
+.ace-clouds-content-mode .ace_marker-layer .ace_selection {
   background: #BDD5FC
 }
 
-.ace-clouds.ace_multiselect .ace_selection.ace_start {
+.ace-clouds-content-mode.ace_multiselect .ace_selection.ace_start {
   box-shadow: 0 0 3px 0px #FFFFFF;
 }
 
-.ace-clouds .ace_marker-layer .ace_step {
+.ace-clouds-content-mode .ace_marker-layer .ace_step {
   background: rgb(255, 255, 0)
 }
 
-.ace-clouds .ace_marker-layer .ace_bracket {
+.ace-clouds-content-mode .ace_marker-layer .ace_bracket {
   margin: -1px 0 0 -1px;
   border: 1px solid #BFBFBF
 }
 
-.ace-clouds .ace_marker-layer .ace_active-line {
-  background: #FFFBD1
-}
-
-.ace-clouds .ace_gutter-active-line {
+.ace-clouds-content-mode .ace_gutter-active-line {
   background-color : #dcdcdc
 }
 
-.ace-clouds .ace_marker-layer .ace_selected-word {
+.ace-clouds-content-mode .ace_marker-layer .ace_selected-word {
   border: 1px solid #BDD5FC
 }
 
-.ace-clouds .ace_invisible {
+.ace-clouds-content-mode .ace_invisible {
   color: #BFBFBF
 }
 
-.ace-clouds .ace_keyword,
-.ace-clouds .ace_meta,
-.ace-clouds .ace_support.ace_constant.ace_property-value {
-  color: #BCC8BA
+.ace-clouds-content-mode .ace_keyword,
+.ace-clouds-content-mode .ace_meta,
+.ace-clouds-content-mode .ace_support.ace_constant.ace_property-value {
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_keyword.ace_operator {
-  color: #BCC8BA
+.ace-clouds-content-mode .ace_keyword.ace_operator {
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_keyword.ace_other.ace_unit {
-  color: #BCC8BA
+.ace-clouds-content-mode .ace_keyword.ace_other.ace_unit {
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_constant.ace_language {
-  color: #BCC8BA
+.ace-clouds-content-mode .ace_constant.ace_language {
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_constant.ace_numeric {
-  color: #BCC8BA
+.ace-clouds-content-mode .ace_constant.ace_numeric {
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_constant.ace_character.ace_entity {
-  color: #BCC8BA
+.ace-clouds-content-mode .ace_constant.ace_character.ace_entity {
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_invalid {
+.ace-clouds-content-mode .ace_invalid {
   background-color: #FF002A
 }
 
-.ace-clouds .ace_fold {
-  background-color: #BCC8BA;
+.ace-clouds-content-mode .ace_fold {
+  background-color: #b0b0b0;;
   border-color: #000000
 }
 
-.ace-clouds .ace_storage,
-.ace-clouds .ace_support.ace_class,
-.ace-clouds .ace_support.ace_function,
-.ace-clouds .ace_support.ace_other,
-.ace-clouds .ace_support.ace_type {
-  color: #BCC8BA
+.ace-clouds-content-mode .ace_storage,
+.ace-clouds-content-mode .ace_support.ace_class,
+.ace-clouds-content-mode .ace_support.ace_function,
+.ace-clouds-content-mode .ace_support.ace_other,
+.ace-clouds-content-mode .ace_support.ace_type {
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_string {
-  color: #5D90CD
+.ace-clouds-content-mode .ace_string {
+  color: #5D90CD;
+  background-color: #fff;
 }
 
-.ace-clouds .ace_comment {
-  color: #BCC8BA
+.ace-clouds-content-mode .ace_comment {
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_entity.ace_name.ace_tag,
-.ace-clouds .ace_entity.ace_other.ace_attribute-name {
-  color: #BCC8BA
+.ace-clouds-content-mode .ace_entity.ace_name.ace_tag,
+.ace-clouds-content-mode .ace_entity.ace_other.ace_attribute-name {
+  color: #b0b0b0;
 }
 
-.ace-clouds .ace_indent-guide {
+.ace-clouds-content-mode .ace_indent-guide {
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y
 }

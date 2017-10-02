@@ -3,20 +3,20 @@
 ########################################
 
 snippet say
-	say "${1:Hello!}"
+	say "${1:Hello there!}"
 
 snippet sleep
-	sleep ${1:2}
+	sleep ${1:3}
 
 snippet image
 	image "${1:https://studio.botsqd.com/images/botsquad-logo.png}"
 
 snippet buttons
-	buttons do
-	"${1:Button 1}" ->
-		postback "${2:button1}"
-	"${2:Button 2}" ->
-		open "${3:http://www.botsquad.com}"
+	buttons "${1:Please click one of these:} do
+	"${2:Button 1}" ->
+		postback "${3:button1}"
+	"${4:Button 2}" ->
+		open "${5:https://www.botsquad.com}"
 	end
 
 snippet ask
@@ -76,7 +76,7 @@ snippet else
 snippet random
 	random do
 		say "${1:First thing}"
-		say "${1:Another thing}"
+		say "${2:Another thing}"
 	end
 
 snippet inv
