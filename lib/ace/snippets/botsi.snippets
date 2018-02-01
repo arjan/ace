@@ -104,3 +104,13 @@ snippet repeat
 
 snippet inv
 	invoke ${1:mydialog}
+
+snippet task
+	task ${1:mytask} do
+		${2}
+	end
+
+snippet tevent
+	task event: "${1:ping}" do
+		${2}
+	end
