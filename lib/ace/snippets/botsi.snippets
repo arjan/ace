@@ -27,7 +27,7 @@ snippet image
 	show image "${1:https://studio.botsqd.com/images/botsquad-logo.png}"
 
 snippet location
-	show location [${1:4.89341}, ${2:52.364909}]
+	show location [lat: ${1:52.364909}, lon: ${2:4.89341}]
 
 snippet pause
 	pause ${1:3}
@@ -134,7 +134,7 @@ snippet hget
 	log http
 
 snippet hpost
-	http_post "${1:http://httpbin.org/post}", [${2:param}: "#{${3:variable}}"]
+	http_post "${1:http://httpbin.org/post}", [${2:param}: ${3:variable}]
 	log http
 
 snippet hdelete
@@ -167,7 +167,7 @@ snippet devent
 		${0}
 	end
 snippet dlocation
-	dialog(location: [${1:52.364909}, ${2:4.893414}], radius: ${3:100}) do
+	dialog location: [lat: ${1:52.364909}, lon: ${2:4.893414}], radius: ${3:100} do
 		${0}
 	end
 
