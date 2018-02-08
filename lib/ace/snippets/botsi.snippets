@@ -92,10 +92,12 @@ snippet else
 
 snippet branch
 	branch do
-	${1:condition} ->
-		${2}
-	${3:condition} ->
-		${4}
+	${1:answer == :yes} ->
+		${2:say "Great!"}
+	${3:answer == :no} ->
+		${4:say "I feel sad now..."}
+	${5:answer == :maybe} ->
+		${6:say "Maybe is ok..."}
 	end
 
 snippet random
