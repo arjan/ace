@@ -6,9 +6,15 @@
 ## Interactions
 
 snippet say
+	say "${1:Hello there!}"
+
+snippet sayfull
 	say "${1:Hello there!}"${2:, quick_replies: ["Hi"]}${3:, class: ["large"]}
 
 snippet ask
+	ask "${1:What is your name?}"
+
+snippet askfull
 	ask "${1:What is your name?}"${2:, expecting: [:text]}${3:, quick_replies: ["skip"]}
 
 snippet askemail
@@ -33,7 +39,7 @@ snippet pause
 	pause ${1:3}
 
 snippet type
-	type ${1:3}
+	type ${1:4}
 
 snippet buttons
 	buttons "${1:Please click one of these:}" do
@@ -126,7 +132,7 @@ snippet untag
 ## Debug
 
 snippet log
-	log "${1:message}"
+	log "${1:debug message}"
 
 ## HTTP
 snippet hget
@@ -159,6 +165,11 @@ snippet dialog
 
 snippet dtrigger
 	dialog trigger: "${1:hello|welcome|hi}" do
+		${0}
+	end
+
+snippet itrigger
+	dialog trigger: ${1:@intent} do
 		${0}
 	end
 
