@@ -1,116 +1,234 @@
-########################################
-# Botsi snippets                       #
-########################################
+##############################################
+# Botsi snippets                             #
+# https://cloud9-sdk.readme.io/docs/snippets #
+##############################################
+
+## Interactions
 
 snippet say
-	say "${1:Hello there!}"
-
-snippet pause
-	pause ${1:3}
-
-snippet type
-	type ${1:3}
-
-snippet image
-	show image "${1:https://studio.botsqd.com/images/botsquad-logo.png}"
-
-snippet buttons
-	buttons "${1:Please click one of these:}" do
-	"${2:Button 1}" ->
-		postback "${3:button1}"
-	"${4:Button 2}" ->
-		open "${5:https://www.botsquad.com}"
-	end
+  say "${1:Hello there!}"${2:, quick_replies: ["Hi"]}${3:, class: ["large"]}
 
 snippet ask
-	${1:name} = ask "${2:What is your name?}"
+  ask "${1:What is your name?}"${2:, expecting: [:text]}${3:, quick_replies: ["skip"]}
 
-snippet ask_email
-	${1:email} = ask "${2:Enter your email}", expecting: :email
+snippet askemail
+  ${1:email} = ask "${2:Enter your email}", expecting: :email
 
-snippet ask_image
-	${1:image} = ask "${2:Upload an image}", expecting: :image
+snippet askimage
+  ${1:image} = ask "${2:Upload an image}", expecting: :image
 
-snippet yesno
-	${1:reply} = ask "${2:Do you like this?}", expecting: [:yes, :no]
+snippet asklocation
+  ${1:image} = ask "${2:Share your location}", expecting: :location
 
-snippet dialog
-	dialog ${1:mydialog} do
-		${2}
-	end
+snippet askyesno
+  ask "${1:Do you like this?}", expecting: [:yes, :no]
 
-snippet dtrigger
-	dialog trigger: "${1:hello|welcome|hi}" do
-		say "${2:Hello there to you too!}"
-	end
+snippet image
+  show image "${1:https://studio.botsqd.com/images/botsquad-logo.png}"
 
-snippet devent
-	dialog event: "${1:button1}" do
-		say "${2:You pressed a button!}"
-	end
+snippet location
+  show location [${1:4.89341}, ${2:52.364909}]
 
-snippet unknown
-	dialog __unknown__ do
-		${1}
-	end
+snippet pause
+  pause ${1:3}
+
+snippet type
+  type ${1:3}
+
+snippet buttons
+  buttons "${1:Please click one of these:}" do
+  "${2:Button 1}" ->
+    postback "${3:button1}"
+  "${4:Button 2}" ->
+    open "${5:https://www.botsquad.com}"
+  end
+
+snippet template
+  template do
+    "The hat shop 1" ->
+      image_url "http://via.placeholder.com/150x150"
+      subtitle "We've got the right hat for everyone."
+      default_action do
+        open "http://www.redhat.com"
+      end
+
+      buttons do
+        "View Website" ->
+          open "http://www.redhat.com"
+        "Say hello" ->
+          postback "postback:1"
+      end
+  end
+
+## Control flow
 
 snippet ifyesno
-	if ${1:reply == :yes} do
-		say "${2:You said yes}"
-	end
+  if ${1:answer == :yes} do
+    ${0}
+  end
 
 snippet if
-	if ${1:condition} do
-		${2}
-	end
+  if ${1:condition} do
+    ${0}
+  end
 
 snippet ifelse
-	if ${1:condition} do
-		${2}
-	else
-		${3}
-	end
+  if ${1:condition} do
+    ${2}
+  else
+    ${3}
+  end
 
 snippet else
-	else ${1:condition}
-		${2}
-	end
+  else ${1:condition}
+    ${2}
+  end
 
 snippet branch
-	branch do
-	${1:condition} ->
-		${2}
-	${3:condition} ->
-		${4}
-	end
+  branch do
+  ${1:condition} ->
+    ${2}
+  ${3:condition} ->
+    ${4}
+  end
 
 snippet random
-	random do
-		say "${1:First thing}"
-		say "${2:Another thing}"
-	end
-
-snippet elixir
-	elixir do
-		def ${1:name}() do
-      ${2}
-    end
-	end
+  random do
+    say "${1:First thing}"
+    say "${2:Another thing}"
+  end
 
 snippet repeat
-	repeat ${1:count} in ${2:[5, 4, 3, 2, 1]} do
-		say "${3:Counting down... #{count}}"
-	end
+  repeat ${1:count} in ${2:[5, 4, 3, 2, 1]} do
+    say "${3:Counting down... #{count}}"
+  end
 
 snippet inv
-	invoke ${1:mydialog}
+  invoke ${1:mydialog}
+
+snippet perf
+  perform ${1:mytask}
+
+## State
+
+snippet rem
+  remember ${1:variable}
+
+snippet forget
+  forget ${1:variable}
+
+snippet tag
+  tag "${1:flag}"
+
+snippet untag
+  untag "${1:flag}"
+
+## Debug
+
+snippet log
+  log "${1:message}"
+
+## HTTP
+snippet hget
+  http_get "${1:http://httpbin.org/get}?${2:param}=#{url_encode(${3:variable})}"
+  log http
+
+snippet hpost
+  http_post "${1:http://httpbin.org/post}", [${2:param}: "#{${3:variable}}"]
+  log http
+
+snippet hdelete
+  http_delete "${1:http://httpbin.org/anything}"
+  log http
+
+snippet hput
+  http_put "${1:http://httpbin.org/anything}"
+  log http
+
+## Events
+
+snippet emit
+  emit "${1:event}", to: ${2:self}${3:, in: "10m"}${4:, [${5:payload]}]}
+
+## Dialogs
+
+snippet dialog
+  dialog ${1:mydialog} do
+    ${0}
+  end
+
+snippet dtrigger
+  dialog trigger: "${1:hello|welcome|hi}" do
+    ${0}
+  end
+
+snippet devent
+  dialog event: "${1:button1}" do
+    ${0}
+  end
+snippet dlocation
+  dialog(location: [${1:52.364909}, ${2:4.893414}], radius: ${3:100}) do
+    ${0}
+  end
+
+## Special dialogs
+
+snippet unknown
+  dialog __unknown__ do
+    ${0}
+  end
+
+snippet returning
+  dialog __returning__ do
+    ${0}
+  end
+
+snippet unknown_event
+  dialog __unknown_event__ do
+    ${0}
+  end
+
+snippet timeout
+  dialog __timeout__ do
+    ${0}
+  end
+
+snippet unknown_location
+  dialog __unknown_location__ do
+    ${0}
+  end
+
+snippet unknown_attachment
+  dialog __unknown_attachment__ do
+    ${0}
+  end
+
+## Tasks
 
 snippet task
-	task ${1:mytask} do
-		${2}
-	end
+  task ${1:mytask} do
+    ${0}
+  end
 
 snippet tevent
-	task event: "${1:ping}" do
-		${2}
-	end
+  task event: "${1:ping}" do
+    ${0}
+  end
+
+snippet attr
+  @${1:label} ${2:value}
+
+snippet int
+  @${1:label} intent(learn: ${2:[]})
+
+snippet ent
+  @${1:label} entity(match: "${2}")
+
+## Elixir
+
+snippet elixir
+  elixir do
+    def ${1:name}() do
+      ${0}
+    end
+  end
