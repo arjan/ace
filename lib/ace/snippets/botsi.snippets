@@ -44,7 +44,7 @@ snippet type
 snippet buttons
 	buttons "${1:Please click one of these:}" do
 	"${2:Button 1}" ->
-		postback "${3:button1}"
+		event "${3:button1}"
 	"${4:Button 2}" ->
 		open "${5:https://www.botsquad.com}"
 	end
@@ -62,7 +62,7 @@ snippet template
 				"View Website" ->
 					open "http://www.redhat.com"
 				"Say hello" ->
-					postback "postback:1"
+					event "postback:1"
 			end
 	end
 
