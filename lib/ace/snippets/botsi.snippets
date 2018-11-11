@@ -41,6 +41,12 @@ snippet pause
 snippet type
 	type ${1:4}
 
+snippet once
+	once do
+		${1:say "The first time I say this"}
+		${2:say "While the second time I say this"}
+	end
+
 snippet buttons
 	buttons "${1:Please click one of these:}" do
 	"${2:Button 1}" ->
