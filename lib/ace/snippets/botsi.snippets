@@ -197,6 +197,11 @@ snippet unknown
 		${0}
 	end
 
+snippet root
+	dialog __root__ do
+		${0}
+	end
+
 snippet returning
 	dialog __returning__ do
 		${0}
@@ -238,7 +243,7 @@ snippet attr
 	@${1:label} ${2:value}
 
 snippet int
-	@${1:label} intent(learn: ${2:[]})
+	@${1:label} intent(match: ${2:[]})
 
 snippet ent
 	@${1:label} entity(match: "${2}")
