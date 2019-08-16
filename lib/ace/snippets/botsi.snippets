@@ -48,29 +48,43 @@ snippet once
 	end
 
 snippet buttons
-	buttons "${1:Please click one of these:}" do
-	"${2:Button 1}" ->
-		event "${3:button1}"
-	"${4:Button 2}" ->
-		open "${5:https://www.botsquad.com}"
-	end
+	show buttons("${1:Please click one of these:}", [
+		[
+			title: "${2:Button 1}",
+			type: "event",
+			event: "${3:button1}"
+		],
+		[
+			title: "${4:Button 2}",
+			type: "web_url",
+			url: "${5:https://www.botsquad.com.com}"
+		]
+	])
 
 snippet template
-	template do
-		"The hat shop 1" ->
-			image_url "http://via.placeholder.com/150x150"
-			subtitle "We've got the right hat for everyone."
-			default_action do
-				open "http://www.redhat.com"
-			end
+	show gallery_template([
+		[
+			title: "Welcome to Jasper's market",
+			subtitle: "Fresh. Organic. Delicious.",
+			image_url: "http://via.placeholder.com/350x150",
+			default_action: [type: "web_url", url: "http://facebook.com"],
+			buttons: [
+				[type: "event", event: "start", title: "Start shopping"],
+				[type: "event", event: "call", title: "Call us"]
+			]
+		]
+	])
 
-			buttons do
-				"View Website" ->
-					open "http://www.redhat.com"
-				"Say hello" ->
-					event "postback:1"
-			end
-	end
+snippet list
+	item = [
+		title: "Welcome to Jasper's market",
+		subtitle: "Fresh. Organic. Delicious.",
+		image_url: "http://via.placeholder.com/350x150",
+		default_action: [type: "web_url", url: "http://facebook.com"]
+	]
+	button = [type: "event", title: "Load more", event: "more"]
+	# present the list
+	show list_template([item, item, item], button)
 
 ## Control flow
 
