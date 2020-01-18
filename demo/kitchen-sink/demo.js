@@ -121,6 +121,7 @@ consoleEl.style.cssText = "position:fixed; bottom:1px; right:0;\
 border:1px solid #baf; z-index:100";
 
 var cmdLine = new layout.singleLineEditor(consoleEl);
+cmdLine.setOption("placeholder", "Enter a command...");
 cmdLine.editor = env.editor;
 env.editor.cmdLine = cmdLine;
 
@@ -134,21 +135,6 @@ env.editor.showCommandLine = function(val) {
  * This demonstrates how you can define commands and bind shortcuts to them.
  */
 env.editor.commands.addCommands([{
-    name: "gotoline",
-    bindKey: {win: "Ctrl-L", mac: "Command-L"},
-    exec: function(editor, line) {
-        if (typeof line == "object") {
-            var arg = this.name + " " + editor.getCursorPosition().row;
-            editor.cmdLine.setValue(arg, 1);
-            editor.cmdLine.focus();
-            return;
-        }
-        line = parseInt(line, 10);
-        if (!isNaN(line))
-            editor.gotoLine(line);
-    },
-    readOnly: true
-}, {
     name: "snippet",
     bindKey: {win: "Alt-C", mac: "Command-Alt-C"},
     exec: function(editor, needle) {
@@ -269,16 +255,35 @@ commands.addCommand({
 
 
 /*********** manage layout ***************************/
+var sidePanelContainer = document.getElementById("sidePanel");
+sidePanelContainer.onclick = function(e) {
+    if (dom.hasCssClass(sidePanelContainer, "closed"))
+        onResize(null, false);
+    else if (dom.hasCssClass(e.target, "toggleButton"))
+        onResize(null, true);
+}
 var consoleHeight = 20;
-function onResize() {
-    var left = env.split.$container.offsetLeft;
-    var width = document.documentElement.clientWidth - left;
+function onResize(e, closeSidePanel) {
+    var left = 280;
+    var width = document.documentElement.clientWidth;
+    var height = document.documentElement.clientHeight;
+    if (closeSidePanel == null)
+        closeSidePanel = width < 2 * left;
+    if (closeSidePanel)
+        left = 20;
+    width -= left;
     container.style.width = width + "px";
-    container.style.height = document.documentElement.clientHeight - consoleHeight + "px";
+    container.style.height = height - consoleHeight + "px";
+    container.style.left = left + "px";
     env.split.resize();
 
     consoleEl.style.width = width + "px";
+    consoleEl.style.left = left + "px";
     cmdLine.resize();
+    
+    sidePanel.style.width = left + "px";
+    sidePanel.style.height = height + "px";
+    dom.setCssClass(sidePanelContainer, "closed", closeSidePanel);
 }
 
 window.onresize = onResize;
@@ -369,7 +374,11 @@ optionsPanel.add({
         }
     },
     More: {
-        "Rtl Text": {
+        "RTL": {
+            path: "rtl",
+            position: 900
+        },
+        "Line based RTL switching": {
             path: "rtlText",
             position: 900
         },
@@ -377,7 +386,8 @@ optionsPanel.add({
             path: "showTokenInfo",
             position: 2000
         },
-        "Text Input Debugger": devUtil.textInputDebugger
+        "Show Textarea Position": devUtil.textPositionDebugger,
+        "Text Input Debugger": devUtil.textInputDebugger,
     }
 });
 

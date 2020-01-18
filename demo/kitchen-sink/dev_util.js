@@ -34,18 +34,6 @@ var event = require("ace/lib/event");
 var Range = require("ace/range").Range;
 var EditSession = require("ace/edit_session").EditSession;
 var UndoManager = require("ace/undomanager").UndoManager;
-function warn() {
-    var s = (new Error()).stack || "";
-    s = s.split("\n");
-    if (s[1] == "Error") s.shift(); // remove error description on chrome
-    s.shift(); // remove warn
-    s.shift(); // remove the getter
-    s = s.join("\n");
-    // allow easy access to ace in console, but not in ace code
-    if (!/at Object.InjectedScript.|@debugger eval|snippets:\/{3}|<anonymous>:\d+:\d+/.test(s)) {
-        console.error("trying to access to global variable");
-    }
-}
 function def(o, key, get) {
     try {
         Object.defineProperty(o, key, {
@@ -60,30 +48,13 @@ function def(o, key, get) {
         console.error(e);
     }
 }
-def(window, "ace", function(){ warn(); return window.env.editor });
-def(window, "editor", function(){ warn(); return window.env.editor == logEditor ? editor : window.env.editor });
+def(window, "ace", function(){  return window.env.editor });
+def(window, "editor", function(){  return window.env.editor == logEditor ? editor : window.env.editor });
 def(window, "session", function(){ return window.editor.session });
-def(window, "split", function(){ warn(); return window.env.split });
+def(window, "split", function(){  return window.env.split });
 
 
-def(window, "devUtil", function(){ warn(); return exports });
-exports.showTextArea = function(argument) {
-    dom.importCssString("\
-      .ace_text-input {\
-        position: absolute;\
-        z-index: 10!important;\
-        width: 6em!important;\
-        height: 1em;\
-        opacity: 1!important;\
-        background: rgba(0, 92, 255, 0.11);\
-        border: none;\
-        font: inherit;\
-        padding: 0 1px;\
-        margin: 0 -1px;\
-        text-indent: 0em;\
-    }\
-    ");
-};
+def(window, "devUtil", function(){ return exports });
 
 exports.addGlobals = function() {
     window.oop = require("ace/lib/oop");
@@ -102,6 +73,7 @@ exports.addGlobals = function() {
     window.testSelection = testSelection;
     window.setValue = setValue;
     window.testValue = testValue;
+    window.logToAce = exports.log;
 };
 
 function getSelection(editor) {
@@ -335,6 +307,7 @@ exports.getUI = function(container) {
 var ignoreEvents = false;
 exports.textInputDebugger = {
     position: 2000,
+    path: "textInputDebugger",
     onchange: function(value) {
         var sp = env.split;
         if (sp.getSplits() == 2) {
@@ -352,11 +325,7 @@ exports.textInputDebugger = {
         }
     },
     showConsole: function() {
-        var sp = env.split;
-        sp.setSplits(2);
-        sp.setOrientation(sp.BELOW);
-        
-        var editor = sp.$editors[0];
+        var editor = env.split.$editors[0];
         var text = editor.textInput.getElement();
         text.oldParent = text.parentNode;
         text.oldClassName = text.className;
@@ -377,10 +346,8 @@ exports.textInputDebugger = {
                 },
                 modifier: event.getModifierString(e) || undefined
             };
-            log.navigateFileEnd();
             var str = JSON.stringify(data).replace(/"(\w+)":/g, " $1: ");
-            log.insert(str + ",\n");
-            log.renderer.scrollCursorIntoView();
+            exports.log(str);
         };
         var events = ["select", "input", "keypress", "keydown", "keyup", 
             "compositionstart", "compositionupdate", "compositionend", "cut", "copy", "paste"
@@ -416,16 +383,45 @@ exports.textInputDebugger = {
             this.__proto__.setSelectionRange.call(this, start, end)
             ignoreEvents = false;
         }
-        
-        var log = sp.$editors[1];
-        if (!this.session)
-            this.session = new EditSession("");
-        log.setSession(this.session);
+        exports.openConsole();
         editor.focus();
     },
     getValue: function() {
         return !!env.textarea;
     }
-}
+};
+
+exports.textPositionDebugger = {
+    position: 2000,
+    path: "textPositionDebugger",
+    onchange: function(value) {
+        document.body.classList[value ? "add" : "remove"]("show-text-input")
+    },
+    getValue: function() {
+        return document.body.classList.contains("show-text-input");
+    }
+};
+
+exports.openConsole = function() {
+    var sp = env.split;
+    var logEditor = sp.$editors[1];
+    if (!logEditor) {
+        sp.setSplits(2);
+        sp.setOrientation(sp.BELOW);
+        logEditor = sp.$editors[1];
+    }
+    if (!exports.session)
+        exports.session = new EditSession("");
+    logEditor.setSession(exports.session);
+    return logEditor
+};
+exports.log = function(str) {   
+    var logEditor = exports.openConsole();
+    logEditor.navigateFileEnd();
+    logEditor.insert(str + ",\n");
+    logEditor.renderer.scrollCursorIntoView();
+};
+
+exports.addGlobals();
 
 });
